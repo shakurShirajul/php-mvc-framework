@@ -21,10 +21,17 @@ class UserControllers extends Controller
         $this->response->sendStatus(200);
         $this->response->setContent($user);
     }
-    public function user()
+    public function user($params = [])
     {
+        $id = $params['id'] ?? null;
 
-        $user = $this->userModel->findOne($_GET["id"]);
-        echo json_encode($user);
+        if ($id === null) {
+            $this->response->sendStatus(400);
+            return;
+        }
+
+        $user = $this->userModel->findOne($id);
+        $this->response->sendStatus(200);
+        $this->response->setContent($user);
     }
 }

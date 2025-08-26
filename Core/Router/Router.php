@@ -12,7 +12,6 @@ class Router
         $this->uri = $uri;
         $this->method = $method;
         $this->response = $GLOBALS['response'];
-        // dd($this->response);
     }
 
     public function add($method, $uri, $controller)
@@ -43,16 +42,18 @@ class Router
     {
         return $this->add("PUT", $uri, $controller);
     }
-
     public function route()
     {
         foreach ($this->routes as $route) {
             if ($route['uri'] === $this->uri && $route['method'] === $this->method) {
+
                 $controller = $route['controller'];
-                $controller[0] = new $controller[0]();
-                if (is_callable($controller)) {
-                    // dd($route['uri']);
-                    return call_user_func($controller);
+                $controllerInstance = new $controller[0]();
+                $method = $controller[1];
+
+                if (is_callable([$controllerInstance, $method])) {
+                    // Simple approach: pass $_GET as array to method
+                    return $controllerInstance->$method($_GET);
                 }
             }
         }

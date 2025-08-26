@@ -14,10 +14,6 @@ require CORE . "autoloader.php";
 $response = new Response();
 $request = new Request();
 
-// $GLOBALS['request'] = $request;
-// $GLOBALS['response'] = $response;
-
-
 $response->setHeader("Access-Control-Allow-Origin: *");
 
 $response->setHeader("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
@@ -29,6 +25,8 @@ use Controllers\UserControllers;
 use Router\Router;
 
 $router = new Router($request->getUrl(), $request->getMethod());
+
+
 
 
 $router->get("/", [UserControllers::class, "users"]);
