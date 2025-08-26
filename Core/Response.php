@@ -69,7 +69,10 @@ class Response
     protected $headers =  [];
     protected $content;
     public function __construct() {}
-
+    public function getStatusCodeText($code)
+    {
+        return isset($this->statusTexts[$code]) ? $this->statusTexts[$code] : 'unknown status';
+    }
     public function setHeader($header)
     {
         $this->headers[] = $header;
@@ -82,17 +85,17 @@ class Response
     {
         $this->content = json_encode($content);
     }
-
+    public function getContent()
+    {
+        return $this->content;
+    }
     // Check Status Code Is Valid Or Not?
     public function isInvalid(int $statusCode): bool
     {
         return $statusCode < 100 || $statusCode >= 600;
     }
 
-    public function getStatusCodeText($code)
-    {
-        return (string) isset($this->statusTexts[$code]) ? $this->statusTexts[$code] : 'unknown status';
-    }
+
     public function sendStatus($code)
     {
         if (!$this->isInvalid($code)) {

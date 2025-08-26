@@ -7,11 +7,15 @@ const MODELS = 'App/Models/';
 const CONTROLLER  = 'App/Controllers';
 const CORE = 'Core/';
 const APP = 'App/';
+
 require CORE . 'Helper/function.php';
 require CORE . "autoloader.php";
 
 $response = new Response();
+$request = new Request();
 
+// $GLOBALS['request'] = $request;
+// $GLOBALS['response'] = $response;
 
 
 $response->setHeader("Access-Control-Allow-Origin: *");
@@ -24,7 +28,7 @@ $response->setHeader("Content-Type: application/json; charset=UTF-8");
 use Controllers\UserControllers;
 use Router\Router;
 
-$router = new Router($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD']);
+$router = new Router($request->getUrl(), $request->getMethod());
 
 
 $router->get("/", [UserControllers::class, "users"]);

@@ -3,10 +3,11 @@
 
 class Controller
 {
-    public $response;
+    public $response, $request;
     public function __construct()
     {
         $this->response = $GLOBALS["response"];
+        $this->request = $GLOBALS['request'];
     }
     public function model($model)
     {
