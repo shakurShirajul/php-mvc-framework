@@ -31,6 +31,9 @@ $router = new Router($request->getUrl(), $request->getMethod());
 
 $router->get("/", [UserControllers::class, "users"]);
 $router->get("/user", [UserControllers::class, "user"]);
+$router->post("/user/store", [UserControllers::class, "store"]);
+$router->patch("/user/update", [UserControllers::class, "update"]);
+$router->delete("/user/delete", [UserControllers::class, "destroy"]);
 
 
 

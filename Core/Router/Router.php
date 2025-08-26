@@ -46,13 +46,10 @@ class Router
     {
         foreach ($this->routes as $route) {
             if ($route['uri'] === $this->uri && $route['method'] === $this->method) {
-
                 $controller = $route['controller'];
                 $controllerInstance = new $controller[0]();
                 $method = $controller[1];
-
                 if (is_callable([$controllerInstance, $method])) {
-                    // Simple approach: pass $_GET as array to method
                     return $controllerInstance->$method($_GET);
                 }
             }

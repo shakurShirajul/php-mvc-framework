@@ -22,7 +22,7 @@ class Request
         return $this->clean($_POST);
     }
 
-    public function input($key)
+    public function input($key = '')
     {
         $postdata = file_get_contents("php://input");
         $request = json_decode($postdata, true);
@@ -30,7 +30,7 @@ class Request
         if ($key != '') {
             return isset($request[$key]) ? $this->clean($request[$key]) : null;
         }
-        return $request;
+        return $this->clean($request);
     }
 
     public function server(String $key = '')
@@ -60,7 +60,8 @@ class Request
                 $data[$this->clean($key)] =  $this->clean($value);
             }
         } else {
-            $data = htmlspecialchars($data, ENT_COMPAT, 'UTF-8');
+            // $data = htmlspecialchars($data, ENT_COMPAT, 'UTF-8');
+            $data = strip_tags($data);
         }
         return $data;
     }

@@ -28,4 +28,14 @@ class DB
     {
         return $this->statement->fetch();
     }
+
+    public function lastInsertId()
+    {
+        return $this->pdo->lastInsertId();
+    }
+
+    public function rowCount()
+    {
+        return $this->statement->rowCount();
+    }
 }
